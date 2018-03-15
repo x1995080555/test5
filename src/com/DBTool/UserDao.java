@@ -25,4 +25,18 @@ public class UserDao {
 		}
 		return false;
 	}
+	
+	public boolean register(UserBean userBean) throws Exception{
+		Connection con = dbUtil.getConnection();
+		String sql = "insert into user(Uname,Upwd,Uphone) values (?,?,?)";
+		PreparedStatement prest = dbUtil.getprep(con, sql);	
+		prest.setString(1, userBean.getUname());
+		prest.setString(2, userBean.getUpwd());
+		prest.setString(3, userBean.getUphone());
+		int i = prest.executeUpdate();
+		if(i>0){
+			return true;
+		}
+		return false;
+	}
 }

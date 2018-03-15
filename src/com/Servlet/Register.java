@@ -13,19 +13,17 @@ import com.Bean.UserBean;
 import com.DBTool.DBUtil;
 import com.DBTool.UserDao;
 
-
-
 /**
- * Servlet implementation class Login
+ * Servlet implementation class Register
  */
-@WebServlet("/Login")
-public class Login extends HttpServlet {
+@WebServlet("/Register")
+public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Login() {
+    public Register() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,7 +33,7 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
 
 	/**
@@ -43,30 +41,29 @@ public class Login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String uname = request.getParameter("name"); //用于接收前段输入的ID值，此处参数须和input控件的name值一致  
-        String upwd= request.getParameter("pwd");//用于接收前段输入的PW值，此处参数须和input控件的name值一致  
-        boolean type=false;//用于判断账号和密码是否与数据库中查询结果一致  
-        response.setContentType("text/html; charset=UTF-8");  
-        PrintWriter out = response.getWriter();  
+		response.setContentType("text/html; charset=UTF-8");  
+	    PrintWriter out = response.getWriter();  
+		String uname = request.getParameter("uname"); //用于接收前段输入的ID值，此处参数须和input控件的name值一致  
+        String upwd= request.getParameter("upwd");
+        String uphone= request.getParameter("uphone");
         UserBean userBean = new UserBean();
         userBean.setUname(uname);
         userBean.setUpwd(upwd);
-        try  
-        {   
-        	UserDao userDao = new UserDao();
-        	type = userDao.login(userBean);
-        }
-        catch(Exception ex)  
-        {  
-            ex.printStackTrace();  
-        }  
-        finally  
-        {  
-            DBUtil.Close();  
-            out.print(type);  
+        userBean.setUphone(uphone);
+        UserDao userDao = new UserDao();
+        boolean flag = false;
+        try {
+			flag = userDao.register(userBean);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        if(flag) {
+        	DBUtil.Close();  
+            out.print(flag);  
             out.flush();  
             out.close();  
-        }  
+        }
+	}
 
-	} 
 }
