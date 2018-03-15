@@ -14,7 +14,7 @@ public class UserDao {
 	public boolean login(UserBean userBean) throws Exception{
 		Connection con = dbUtil.getConnection();
 		UserBean user = new  UserBean();
-		String sql = "select * from user_table where Uname=? and Upass=?";
+		String sql = "select * from demotable where uid=? and pwd=?";
 		ResultSet rs = null;
 		PreparedStatement prest = dbUtil.getprep(con, sql);
 		prest.setString(1, userBean.getUname());
