@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DBUtil {  
-    private static String url="jdbc:mysql://localhost:3306/demo?&useSSL=true";  
+    private static String url="jdbc:mysql://localhost:3306/food?&useSSL=true";  
     private static String driverClass="com.mysql.jdbc.Driver";  
     private static String username="root";  
     private static String password="123456";  
