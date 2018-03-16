@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.Bean.UserBean;
 import com.DBTool.DBUtil;
@@ -60,13 +61,29 @@ public class Login extends HttpServlet {
         {  
             ex.printStackTrace();  
         }  
-        finally  
-        {  
-            DBUtil.Close();  
-            out.print(type);  
-            out.flush();  
-            out.close();  
-        }  
+        if(type) {
+        	UserDao userDao = new UserDao();
+        	int id = 0;
+        	try {
+				id = userDao.selid(userBean);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	HttpSession session = request.getSession();
+        	session.setAttribute("Userid",id);
+        	System.out.println(id);
+//			String id1 = Integer.toString(id);
+//			session.setAttribute("Suserid",id1);
+        	out.print(type);  
+        	out.flush();  
+        	out.close();
+        }
+        else {
+        	out.print(type);  
+        	out.flush();  
+        	out.close();
+        }
 
 	} 
 }

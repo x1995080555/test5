@@ -2,28 +2,29 @@ package com.Servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.channels.SeekableByteChannel;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.Bean.UserBean;
-import com.DBTool.DBUtil;
 import com.DBTool.UserDao;
 
 /**
- * Servlet implementation class Register
+ * Servlet implementation class Changephone
  */
-@WebServlet("/Register")
-public class Register extends HttpServlet {
+@WebServlet("/Changephone")
+public class Changephone extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Register() {
+    public Changephone() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,26 +42,24 @@ public class Register extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.setContentType("text/html; charset=UTF-8");  
-	    PrintWriter out = response.getWriter();  
-		String uname = request.getParameter("uname"); //用于接收前段输入的ID值，此处参数须和input控件的name值一致  
-        String upwd= request.getParameter("upwd");
-        String uphone= request.getParameter("uphone");
-        UserBean userBean = new UserBean();
-        userBean.setUname(uname);
-        userBean.setUpwd(upwd);
-        userBean.setUphone(uphone);
-        UserDao userDao = new UserDao();
-        boolean flag = false;
-        try {
-			flag = userDao.register(userBean);
+		HttpSession session = request.getSession();
+		String phone = request.getParameter("phone");
+		int id = (int) session.getAttribute("Userid");
+		UserBean userBean = new UserBean();
+		userBean.setUid(id);
+		userBean.setUphone(phone);
+		UserDao userDao = new UserDao();
+		boolean flag = false;
+		try {
+			flag = userDao.changephone(userBean);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        out.print(flag);  
+		PrintWriter out = response.getWriter();
+		out.print(flag);  
         out.flush();  
-        out.close();  
+        out.close();
 	}
 
 }
