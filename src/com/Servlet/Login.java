@@ -14,6 +14,8 @@ import com.Bean.UserBean;
 import com.DBTool.DBUtil;
 import com.DBTool.UserDao;
 
+import net.sf.json.JSONObject;
+
 
 
 /**
@@ -47,8 +49,7 @@ public class Login extends HttpServlet {
 		String uname = request.getParameter("name"); //用于接收前段输入的ID值，此处参数须和input控件的name值一致  
         String upwd= request.getParameter("pwd");//用于接收前段输入的PW值，此处参数须和input控件的name值一致  
         boolean type=false;//用于判断账号和密码是否与数据库中查询结果一致  
-        response.setContentType("text/html; charset=UTF-8");  
-        PrintWriter out = response.getWriter();  
+        response.setCharacterEncoding("utf-8");
         UserBean userBean = new UserBean();
         userBean.setUname(uname);
         userBean.setUpwd(upwd);
@@ -63,23 +64,31 @@ public class Login extends HttpServlet {
         }  
         if(type) {
         	UserDao userDao = new UserDao();
-        	int id = 0;
+        	UserBean userBean2 = new UserBean();
         	try {
-				id = userDao.selid(userBean);
+        		userBean2 = userDao.selinfo(userBean);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         	HttpSession session = request.getSession();
+        	int id = userBean2.getUid();
         	session.setAttribute("Userid",id);
         	System.out.println(id);
 //			String id1 = Integer.toString(id);
 //			session.setAttribute("Suserid",id1);
+        	response.setContentType("application/json;charset=utf-8");
+        	PrintWriter out = response.getWriter(); 
+        	JSONObject json = JSONObject.fromObject(userBean2);
+        	System.out.println(json);
+        	System.out.println(json.toString());
         	out.print(type);  
         	out.flush();  
         	out.close();
         }
         else {
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();  
         	out.print(type);  
         	out.flush();  
         	out.close();

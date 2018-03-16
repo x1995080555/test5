@@ -29,9 +29,8 @@ public class UserDao {
 		return false;
 	}
 	
-	public int selid(UserBean userBean) throws Exception{
+	public UserBean selinfo(UserBean userBean) throws Exception{
 		Connection con = dbUtil.getConnection();
-		UserBean user = new  UserBean();
 		String sql = "select * from user where Uname=? and Upwd=?";
 		ResultSet rs = null;
 		PreparedStatement prest = dbUtil.getprep(con, sql);
@@ -40,9 +39,12 @@ public class UserDao {
 		rs = prest.executeQuery();
 		while(rs.next()){
 			userBean.setUid(rs.getInt("Uid"));
+			userBean.setUname(rs.getString("Uname"));
+			userBean.setUpwd(rs.getString("Upwd"));
+			userBean.setUphone(rs.getString("Uphone"));
 		}
 		dbUtil.Close();
-		return userBean.getUid();
+		return userBean;
 	}
 	
 	public boolean register(UserBean userBean) throws Exception{
