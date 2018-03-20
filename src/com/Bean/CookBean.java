@@ -1,6 +1,6 @@
 package com.Bean;
 
-public class BookBean {
+public class CookBean {
 	private String ctitle;
 	private String ctime;
 	private int cview;
@@ -8,6 +8,13 @@ public class BookBean {
 	private String ctext;
 	private String uname;
 	private int cid;
+	private int sort;
+	public int getSort() {
+		return sort;
+	}
+	public void setSort(int sort) {
+		this.sort = sort;
+	}
 	public int getCid() {
 		return cid;
 	}
