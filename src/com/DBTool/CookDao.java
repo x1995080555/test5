@@ -153,9 +153,9 @@ public class CookDao {
 		return Cookinfo;
 	} 
 	
-	public ArrayList<CookBean> selectmain(int cid) throws Exception{
-		ArrayList<CookBean> Cookinfo = new ArrayList<CookBean>();
+	public CookBean selectmain(int cid) throws Exception{
 		Connection connection  = dbUtil.getConnection();
+		CookBean cookBean = new CookBean();
 		PreparedStatement prest =  null;
 		ResultSet rs = null;
 		String sql = "select Cid,Ctitle,Ctime,Cview,Cimg,Csort,"
@@ -165,7 +165,6 @@ public class CookDao {
 		prest.setInt(1, cid);
 		rs = prest.executeQuery();
 		while (rs.next()) {
-			CookBean cookBean = new CookBean();
 			cookBean.setCid(rs.getInt("Cid"));
 			cookBean.setCtitle(rs.getString("Ctitle"));
 			cookBean.setCtime(rs.getString("Ctime"));
@@ -174,9 +173,8 @@ public class CookDao {
 			cookBean.setSort(rs.getInt("Csort"));
 			cookBean.setUname(rs.getString("Uname"));
 			cookBean.setCtext(rs.getString("Ctext"));
-			Cookinfo.add(cookBean);
 		}
-		return Cookinfo;
+		return cookBean;
 	} 
 	
 	public boolean updateview(int cid,int count) throws Exception{
