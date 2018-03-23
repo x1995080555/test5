@@ -15,7 +15,6 @@ import com.Bean.CommentBean;
 import com.DBTool.CommentDao;
 
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 
 /**

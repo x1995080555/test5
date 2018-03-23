@@ -2,7 +2,6 @@ package com.Servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.channels.SeekableByteChannel;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

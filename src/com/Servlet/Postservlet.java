@@ -3,7 +3,6 @@ package com.Servlet;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.CollationKey;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +23,6 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import com.Bean.CookBean;
 import com.DBTool.CookDao;
 
-import sun.text.resources.zh.CollationData_zh_HK;
 
 /**
  * Servlet implementation class Postservlet
@@ -140,7 +138,7 @@ public class Postservlet extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-	        	out.print(flag);  
+	        	out.print(tag);  
 	            out.flush();  
 	            out.close();  
 	        }

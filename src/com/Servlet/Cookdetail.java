@@ -14,7 +14,6 @@ import com.Bean.CommentBean;
 import com.Bean.CookBean;
 import com.DBTool.CommentDao;
 import com.DBTool.CookDao;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;

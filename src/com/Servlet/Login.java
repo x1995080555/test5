@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.Bean.UserBean;
-import com.DBTool.DBUtil;
 import com.DBTool.UserDao;
 
 import net.sf.json.JSONObject;
