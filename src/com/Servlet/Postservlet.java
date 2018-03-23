@@ -123,7 +123,7 @@ public class Postservlet extends HttpServlet {
 	        	String title = (String) request.getAttribute("title");
 	        	String img = (String) request.getAttribute("img");
 	        	String text = (String) request.getAttribute("text");
-	        	int sort = (int)request.getAttribute("sort");
+	        	int sid = (int)request.getAttribute("sid");
 	        	HttpSession session = request.getSession();
 	        	int uid = (int)session.getAttribute("Userid");
 	        	cookBean.setCimg(img);
@@ -131,7 +131,7 @@ public class Postservlet extends HttpServlet {
 	        	cookBean.setCtime(posttime);
 	        	cookBean.setCview(cview);
 	        	cookBean.setCtitle(title);
-	        	cookBean.setSort(sort);
+	        	cookBean.setSid(sid);
 	        	CookDao cookDao = new CookDao();
 	        	boolean tag = false;
 	        	try {

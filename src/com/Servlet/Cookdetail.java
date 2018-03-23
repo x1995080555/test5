@@ -10,8 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.Bean.CommentBean;
 import com.Bean.CookBean;
+import com.DBTool.CommentDao;
 import com.DBTool.CookDao;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -45,7 +48,7 @@ public class Cookdetail extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
-		String cid1 = request.getParameter("cid");
+		String cid1 = request.getParameter("Cookid");
 		int cid = Integer.parseInt(cid1);
 		CookBean cookBean = new CookBean();
 		CookDao cookDao = new CookDao();
@@ -55,10 +58,27 @@ public class Cookdetail extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		CommentDao commentDao = new CommentDao();
+		ArrayList<CommentBean> commentBeans = new ArrayList<CommentBean>();
+		try {
+			commentBeans = commentDao.selbycid(cid);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		PrintWriter out = response.getWriter(); 
-    	JSONObject jsonObject = JSONObject.fromObject(cookBean);
-    	System.out.println(jsonObject.toString());
-    	out.write(jsonObject.toString());  
+    	JSONObject jsonObject1 = JSONObject.fromObject(cookBean);
+    	System.out.println(jsonObject1.toString());
+    	
+    	JSONArray jsonArray1 = JSONArray.fromObject(commentBeans);
+    	System.out.println(jsonArray1.toString());
+    	
+    	JSONObject jObject = new JSONObject();
+    	jObject.put("cook",jsonObject1);
+    	jObject.put("comment", jsonArray1);
+    	System.out.println(jObject.toString());
+    	
+    	out.write(jObject.toString());  
     	out.flush();  
     	out.close(); 
 	}

@@ -8,11 +8,18 @@ public class CookBean {
 	private String ctext;
 	private String uname;
 	private int cid;
-	private int sort;
-	public int getSort() {
+	private String sort;
+	private int sid;
+	public int getSid() {
+		return sid;
+	}
+	public void setSid(int sid) {
+		this.sid = sid;
+	}
+	public String getSort() {
 		return sort;
 	}
-	public void setSort(int sort) {
+	public void setSort(String sort) {
 		this.sort = sort;
 	}
 	public int getCid() {
