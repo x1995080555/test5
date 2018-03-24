@@ -83,9 +83,10 @@ public class Login extends HttpServlet {
         	response.setContentType("application/json;charset=utf-8");
         	PrintWriter out = response.getWriter(); 
         	JSONObject json = JSONObject.fromObject(userBean2);
-        	System.out.println(json);
+//        	System.out.println(json);
         	System.out.println(json.toString());
-        	out.print(type);  
+//        	out.print(type);  
+        	out.write(json.toString());
         	out.flush();  
         	out.close();
         }

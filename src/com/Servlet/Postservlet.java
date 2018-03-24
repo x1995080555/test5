@@ -52,8 +52,9 @@ public class Postservlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.setCharacterEncoding("utf-8");  //设置编码  
+		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
+		CookBean cookBean = new CookBean();
         PrintWriter out = response.getWriter();  
         DiskFileItemFactory factory = new DiskFileItemFactory();  
         ServletFileUpload upload = new ServletFileUpload(factory); 
@@ -75,7 +76,8 @@ public class Postservlet extends HttpServlet {
         }  
 		if(list!=null) {
 //	        String path = request.getRealPath("/upload");  
-	        String path = getServletContext().getRealPath("/WEB-INF/img/");
+	        String path = getServletContext().getRealPath("/images/");
+//	        System.out.println(path);
 	        File file=new File(path);
 	        if(!file.exists()){
 	            file.mkdirs();
@@ -87,24 +89,28 @@ public class Postservlet extends HttpServlet {
 	            for(FileItem item : list){  
 	                //获取属性名字  
 	                String name = item.getFieldName();  
-	                System.out.println("name");
+	                System.out.println("Field:"+name);
 	                //如果获取的 表单信息是普通的 文本 信息  
 	                if(item.isFormField()){                     
 	                    //获取用户具体输入的字符串,因为表单提交过来的是 字符串类型的  
-	                    String value = item.getString() ;  
+	                    String value = item.getString() ; 
+	                    String aString = new String(value.getBytes("ISO-8859-1"),"UTF-8");
+//	                    aString = aString.replaceAll("\r|\n", "");
+	                    System.out.println("value:"+aString);
 	                    request.setAttribute(name, value);  
 	                }else{  
 	                    //获取路径名  
-	                    String value = item.getName() ;  
+	                    String value = item.getName() ;
+	                    System.out.println("filename:"+value);
 	                    //索引到最后一个反斜杠  
 	                    int start = value.lastIndexOf("\\");  
 	                    //截取 上传文件的 字符串名字，加1是 去掉反斜杠，  
-	                    String filename = value.substring(start+1);  
+	                    String filename = value.substring(start+1); 
+	                    cookBean.setCimg(filename);
 	                    request.setAttribute(name, filename);  
 	                    //写到磁盘上  
 	                    item.write( new File(path+File.separator+filename) );//第三方提供的  
-	                    System.out.println("上传成功："+filename);
-//	                    response.getWriter().print(filename);//将路径返回给客户端
+	                  
 	                    flag = true;
 	                }  
 	            }  
@@ -113,34 +119,38 @@ public class Postservlet extends HttpServlet {
 	            response.getWriter().print("上传失败："+e.getMessage());
 	        }
 	        if(flag) {
-	        	CookBean cookBean = new CookBean();
 	        	Date date = new Date();
 	    		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	    		String posttime = sdf.format(date);
 	    		int cview = 0;
 	        	String title = (String) request.getAttribute("title");
-	        	String img = (String) request.getAttribute("img");
+	        	String ctitle = new String(title.getBytes("ISO-8859-1"),"UTF-8");
+	        	
 	        	String text = (String) request.getAttribute("text");
-	        	int sid = (int)request.getAttribute("sid");
-	        	HttpSession session = request.getSession();
-	        	int uid = (int)session.getAttribute("Userid");
-	        	cookBean.setCimg(img);
-	        	cookBean.setCtext(text);
+	        	String ctext = new String(text.getBytes("ISO-8859-1"),"UTF-8");
+	        	
+	        	String sort = (String) request.getAttribute("sort");
+	        	sort = sort.replaceAll("\r|\n", "");
+	        	int sid = Integer.parseInt(sort);
+	        	System.out.println("test3:"+sid);
+	        	cookBean.setCtext(ctext);
 	        	cookBean.setCtime(posttime);
 	        	cookBean.setCview(cview);
-	        	cookBean.setCtitle(title);
+	        	cookBean.setCtitle(ctitle);
 	        	cookBean.setSid(sid);
 	        	CookDao cookDao = new CookDao();
 	        	boolean tag = false;
 	        	try {
-	        		tag = cookDao.post(cookBean, uid);
+	        		tag = cookDao.post(cookBean, 1);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-	        	out.print(tag);  
-	            out.flush();  
-	            out.close();  
+	        	if(tag) {
+	        		  String filename = cookBean.getCimg();
+	        		  System.out.println("上传成功："+filename);
+	                  response.getWriter().print(filename);//将路径返回给客户端
+	        	}
 	        }
 		}
 	}
