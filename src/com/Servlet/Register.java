@@ -42,7 +42,8 @@ public class Register extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html; charset=UTF-8");  
 	    PrintWriter out = response.getWriter();  
-		String uname = request.getParameter("uname"); //用于接收前段输入的ID值，此处参数须和input控件的name值一致  
+		String name = request.getParameter("uname"); //用于接收前段输入的ID值，此处参数须和input控件的name值一致  
+		String uname = new String(name.getBytes("ISO-8859-1"),"UTF-8");
         String upwd= request.getParameter("upwd");
         String uphone= request.getParameter("uphone");
         UserBean userBean = new UserBean();

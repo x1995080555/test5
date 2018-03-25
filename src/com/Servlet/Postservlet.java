@@ -95,7 +95,6 @@ public class Postservlet extends HttpServlet {
 	                    //获取用户具体输入的字符串,因为表单提交过来的是 字符串类型的  
 	                    String value = item.getString() ; 
 	                    String aString = new String(value.getBytes("ISO-8859-1"),"UTF-8");
-//	                    aString = aString.replaceAll("\r|\n", "");
 	                    System.out.println("value:"+aString);
 	                    request.setAttribute(name, value);  
 	                }else{  
@@ -120,7 +119,7 @@ public class Postservlet extends HttpServlet {
 	        }
 	        if(flag) {
 	        	Date date = new Date();
-	    		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	    		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	    		String posttime = sdf.format(date);
 	    		int cview = 0;
 	        	String title = (String) request.getAttribute("title");
@@ -133,6 +132,12 @@ public class Postservlet extends HttpServlet {
 	        	sort = sort.replaceAll("\r|\n", "");
 	        	int sid = Integer.parseInt(sort);
 	        	System.out.println("test3:"+sid);
+	        	
+	        	String id = (String) request.getAttribute("uid");
+	        	id = id.replaceAll("\r|\n", "");
+	        	int uid = Integer.parseInt(id);
+	        	System.out.println("test4:"+uid);
+	        	
 	        	cookBean.setCtext(ctext);
 	        	cookBean.setCtime(posttime);
 	        	cookBean.setCview(cview);
@@ -141,7 +146,7 @@ public class Postservlet extends HttpServlet {
 	        	CookDao cookDao = new CookDao();
 	        	boolean tag = false;
 	        	try {
-	        		tag = cookDao.post(cookBean, 1);
+	        		tag = cookDao.post(cookBean, uid);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
