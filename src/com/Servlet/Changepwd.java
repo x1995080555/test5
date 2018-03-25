@@ -43,9 +43,10 @@ public class Changepwd extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		String pwd = request.getParameter("pwd");
-		int id = (int) session.getAttribute("Userid");
+		String id = request.getParameter("uid");
+		int uid = Integer.parseInt(id);
 		UserBean userBean = new UserBean();
-		userBean.setUid(id);
+		userBean.setUid(uid);
 		userBean.setUpwd(pwd);
 		UserDao userDao = new UserDao();
 		boolean flag = false;

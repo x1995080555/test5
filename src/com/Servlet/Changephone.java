@@ -43,9 +43,10 @@ public class Changephone extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		String phone = request.getParameter("phone");
-		int id = (int) session.getAttribute("Userid");
+		String id = request.getParameter("uid");
+		int uid = Integer.parseInt(id);
 		UserBean userBean = new UserBean();
-		userBean.setUid(id);
+		userBean.setUid(uid);
 		userBean.setUphone(phone);
 		UserDao userDao = new UserDao();
 		boolean flag = false;
