@@ -191,6 +191,22 @@ public class CookDao {
 		return false;	
 	} 
 	
+	
+	public int selectdelid(String name) throws Exception{
+		Connection connection  = dbUtil.getConnection();
+		CookBean cookBean = new CookBean();
+		PreparedStatement prest =  null;
+		ResultSet rs = null;
+		String sql = "select Cid from cook,user,sort where Cimg = ?";
+		prest = dbUtil.getprep(connection, sql);
+		prest.setString(1, name);
+		rs = prest.executeQuery();
+		int cid = 0;
+		while (rs.next()) {
+			cid = rs.getInt("Cid");
+		}
+		return cid;
+	} 
 	public boolean delete(int cid) throws Exception{
 		Connection conn = dbUtil.getConnection();
 		String sql = "delete from cook where Cid= ?";
@@ -203,11 +219,11 @@ public class CookDao {
 		return false;
 	}
 	
-	public boolean deletecom(int id) throws Exception{
+	public boolean deletecom(int cid) throws Exception{
 		Connection conn = dbUtil.getConnection();
 		String sql = "delete from reply where Cid= ?";
 		PreparedStatement prest = dbUtil.getprep(conn, sql);	
-		prest.setInt(1, id);
+		prest.setInt(1, cid);
 		int i = prest.executeUpdate();
 		if(i>0){
 			return true;

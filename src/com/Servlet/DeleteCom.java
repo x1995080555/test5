@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.Bean.CommentBean;
 import com.DBTool.CommentDao;
@@ -45,9 +44,12 @@ public class DeleteCom extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
-		int uid = (int)session.getAttribute("Userid");
-		int cid = (int)session.getAttribute("Cookid");
+		request.setCharacterEncoding("UTF-8");
+		String userid = request.getParameter("uid");
+		int uid = Integer.parseInt(userid);
+		
+		String cookid = request.getParameter("Cookid");
+		int cid = Integer.parseInt(cookid);
 		CommentDao commentDao = new CommentDao();
 		ArrayList<CommentBean> commentBeans = new ArrayList<CommentBean>();
 		boolean flag = false;

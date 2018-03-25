@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.Bean.CommentBean;
 import com.DBTool.CommentDao;
@@ -45,8 +44,8 @@ public class Selectcom extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
-		HttpSession session = request.getSession();
-		int cid = (int)session.getAttribute("Cookid");
+		String cid1 = request.getParameter("Cookid");
+		int cid = Integer.parseInt(cid1);
 		CommentDao commentDao = new CommentDao();
 		ArrayList<CommentBean> commentBeans = new ArrayList<CommentBean>();
 		try {

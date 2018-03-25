@@ -8,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.Bean.UserBean;
 import com.DBTool.UserDao;
@@ -41,7 +40,7 @@ public class Changephone extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
+		request.setCharacterEncoding("UTF-8");
 		String phone = request.getParameter("phone");
 		String id = request.getParameter("uid");
 		int uid = Integer.parseInt(id);

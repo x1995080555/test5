@@ -45,6 +45,7 @@ public class Search extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		String search = request.getParameter("search");
+		search = new String(search.getBytes("ISO-8859-1"),"UTF-8");
 		ArrayList<CookBean> cookBeans = new ArrayList<CookBean>();
 		CookDao cookDao = new CookDao();
 		try {

@@ -8,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.Bean.UserBean;
 import com.DBTool.UserDao;
@@ -76,7 +75,7 @@ public class Login extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-        	HttpSession session = request.getSession();
+//        	HttpSession session = request.getSession();
 //        	int id = userBean2.getUid();
 //        	session.setAttribute("Userid",id);
 //        	System.out.println(id);

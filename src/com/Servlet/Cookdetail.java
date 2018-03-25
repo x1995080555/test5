@@ -2,7 +2,7 @@ package com.Servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.Bean.CommentBean;
+//import com.Bean.CommentBean;
 import com.Bean.CookBean;
-import com.DBTool.CommentDao;
+//import com.DBTool.CommentDao;
 import com.DBTool.CookDao;
 
-import net.sf.json.JSONArray;
+//import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
@@ -57,27 +57,28 @@ public class Cookdetail extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		CommentDao commentDao = new CommentDao();
-		ArrayList<CommentBean> commentBeans = new ArrayList<CommentBean>();
-		try {
-			commentBeans = commentDao.selbycid(cid);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		CommentDao commentDao = new CommentDao();
+//		ArrayList<CommentBean> commentBeans = new ArrayList<CommentBean>();
+//		try {
+//			commentBeans = commentDao.selbycid(cid);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		PrintWriter out = response.getWriter(); 
     	JSONObject jsonObject1 = JSONObject.fromObject(cookBean);
     	System.out.println(jsonObject1.toString());
     	
-    	JSONArray jsonArray1 = JSONArray.fromObject(commentBeans);
-    	System.out.println(jsonArray1.toString());
-    	
-    	JSONObject jObject = new JSONObject();
-    	jObject.put("cook",jsonObject1);
-    	jObject.put("comment", jsonArray1);
-    	System.out.println(jObject.toString());
-    	
-    	out.write(jObject.toString());  
+//    	JSONArray jsonArray1 = JSONArray.fromObject(commentBeans);
+//    	System.out.println(jsonArray1.toString());
+//    	
+//    	JSONObject jObject = new JSONObject();
+//    	jObject.put("cook",jsonObject1);
+//    	jObject.put("comment", jsonArray1);
+//    	System.out.println(jObject.toString());
+//    	
+//    	out.write(jObject.toString());  
+    	out.write(jsonObject1.toString()); 
     	out.flush();  
     	out.close(); 
 	}

@@ -45,6 +45,7 @@ public class Sortselect extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		String sort = request.getParameter("sort");
+		sort = new String(sort.getBytes("ISO-8859-1"),"UTF-8");
 		ArrayList<CookBean> cookBeans = new ArrayList<CookBean>();
 		CookDao cookDao = new CookDao();
 		try {

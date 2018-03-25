@@ -47,6 +47,24 @@ public class UserDao {
 		return userBean;
 	}
 	
+	
+	public UserBean selectuserinfo(int uid) throws Exception{
+		Connection con = dbUtil.getConnection();
+		String sql = "select * from user where Uid=?";
+		ResultSet rs = null;
+		PreparedStatement prest = dbUtil.getprep(con, sql);
+		prest.setInt(1, uid);
+		rs = prest.executeQuery();
+		UserBean userBean = new UserBean();
+		while(rs.next()){
+			userBean.setUid(rs.getInt("Uid"));
+			userBean.setUname(rs.getString("Uname"));
+			userBean.setUpwd(rs.getString("Upwd"));
+			userBean.setUphone(rs.getString("Uphone"));
+		}
+		dbUtil.Close();
+		return userBean;
+	}
 	public boolean register(UserBean userBean) throws Exception{
 		Connection con = dbUtil.getConnection();
 		String sql = "insert into user(Uname,Upwd,Uphone) values (?,?,?)";
