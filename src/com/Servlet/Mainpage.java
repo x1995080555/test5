@@ -44,6 +44,9 @@ public class Mainpage extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
+		String name =request.getParameter("name");
+		System.out.println(name);
+		
 		ArrayList<CookBean> cookBeans = new ArrayList<CookBean>();
 		CookDao cookDao = new CookDao();
 		try {

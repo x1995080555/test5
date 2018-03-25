@@ -32,8 +32,8 @@ public class CookDao {
 		Connection connection  = dbUtil.getConnection();
 		PreparedStatement prest =  null;
 		ResultSet rs = null;
-		String sql = "select Cid,Ctitle,Ctime,Cview,Cimg,Sname,"
-				+ "Uname from cook,user,sort"
+		String sql = "select Cid,Ctitle,Ctime,Cview,Cimg,"
+				+ "Sname,Uname from cook,user,sort "
 				+ "where cook.Uid = user.Uid and cook.Sid = sort.Sid order by Ctime desc";
 		prest = dbUtil.getprep(connection, sql);
 		rs = prest.executeQuery();
