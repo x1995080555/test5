@@ -75,17 +75,13 @@ public class Login extends HttpServlet {
 				e.printStackTrace();
 			}
         	HttpSession session = request.getSession();
-        	int id = userBean2.getUid();
-        	session.setAttribute("Userid",id);
-        	System.out.println(id);
-//			String id1 = Integer.toString(id);
-//			session.setAttribute("Suserid",id1);
+//        	int id = userBean2.getUid();
+//        	session.setAttribute("Userid",id);
+//        	System.out.println(id);
         	response.setContentType("application/json;charset=utf-8");
         	PrintWriter out = response.getWriter(); 
         	JSONObject json = JSONObject.fromObject(userBean2);
-//        	System.out.println(json);
         	System.out.println(json.toString());
-//        	out.print(type);  
         	out.write(json.toString());
         	out.flush();  
         	out.close();
